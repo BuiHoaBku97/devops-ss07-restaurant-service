@@ -1,10 +1,10 @@
-package startup.vn.cartservice;
+package startup.vn.restaurantservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CartServiceApplicationTests {
+class RestaurantServiceApplicationTests {
 
     @Test
     void contextLoads() {

@@ -1,6 +1,6 @@
 spring:
     application:
-        name: cart-service
+        name: restaurant-service
 
     datasource:
         driver-class-name: org.postgresql.Driver
@@ -16,4 +16,4 @@ spring:
                 format_sql: true
 
 server:
-    port: ${CART_SERVICE_PORT:8080}
+    port: ${RESTAURANT_SERVICE_PORT:8080}
