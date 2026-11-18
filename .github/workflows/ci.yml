@@ -15,6 +15,11 @@ jobs:
   test:
     name: Unit tests
     runs-on: [self-hosted, quickbite, restaurant-service]
+    env:
+      CORE_DB_URL: jdbc:postgresql://127.0.0.1:5432/cartdb
+      CORE_DB_USERNAME: postgres
+      CORE_DB_PW: postgres
+      RESTAURANT_SERVICE_PORT: 8080
     services:
       postgres:
         image: postgres:17-alpine
@@ -44,11 +49,6 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run unit tests
-        env:
-          CORE_DB_URL: jdbc:postgresql://localhost:5432/cartdb
-          CORE_DB_USERNAME: postgres
-          CORE_DB_PW: postgres
-          RESTAURANT_SERVICE_PORT: 8080
         run: ./gradlew test
 
   build:
