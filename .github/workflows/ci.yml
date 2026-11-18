@@ -34,8 +34,14 @@ jobs:
       - name: Grant permission for gradlew
         run: chmod +x gradlew
 
+      - name: Verify PostgreSQL is reachable
+        run: |
+          echo "CORE_DB_URL is set: ${CORE_DB_URL:+yes}"
+          getent hosts cart-db
+          timeout 5 bash -c '</dev/tcp/cart-db/5432'
+
       - name: Run unit tests
-        run: ./gradlew test
+        run: ./gradlew test --stacktrace
 
   build:
     name: Build and upload JAR
