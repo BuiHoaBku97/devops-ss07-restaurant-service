@@ -16,7 +16,7 @@ jobs:
     name: Unit tests
     runs-on: [self-hosted, quickbite, restaurant-service]
     env:
-      CORE_DB_URL: jdbc:postgresql://127.0.0.1:5432/cartdb
+      CORE_DB_URL: jdbc:postgresql://host.docker.internal:5432/cartdb
       CORE_DB_USERNAME: postgres
       CORE_DB_PW: postgres
       RESTAURANT_SERVICE_PORT: 8080
