@@ -3,6 +3,8 @@ services:
     image: postgres:17-alpine
     container_name: cart-db-container
     restart: unless-stopped
+    networks:
+      - quickbite-ci
     environment:
       - POSTGRES_DB=cartdb
       - POSTGRES_USER=${CORE_DB_USERNAME}
@@ -38,6 +40,8 @@ services:
     image: myoung34/github-runner:latest
     container_name: quickbite-restaurant-runner
     restart: unless-stopped
+    networks:
+      - quickbite-ci
     depends_on:
       cart-db:
         condition: service_healthy
@@ -64,3 +68,7 @@ volumes:
   pg-data:
   runner-work:
   runner-data:
+
+networks:
+  quickbite-ci:
+    name: quickbite-ci
