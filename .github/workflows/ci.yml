@@ -16,24 +16,10 @@ jobs:
     name: Unit tests
     runs-on: [self-hosted, quickbite, restaurant-service]
     env:
-      CORE_DB_URL: jdbc:postgresql://host.docker.internal:5432/cartdb
+      CORE_DB_URL: jdbc:postgresql://cart-db:5432/cartdb
       CORE_DB_USERNAME: postgres
       CORE_DB_PW: postgres
       RESTAURANT_SERVICE_PORT: 8080
-    services:
-      postgres:
-        image: postgres:17-alpine
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: cartdb
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U postgres -d cartdb"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     steps:
       - name: Checkout source
         uses: actions/checkout@v4

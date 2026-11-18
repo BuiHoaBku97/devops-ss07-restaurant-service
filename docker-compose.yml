@@ -3,8 +3,6 @@ services:
     image: postgres:17-alpine
     container_name: cart-db-container
     restart: unless-stopped
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     environment:
       - POSTGRES_DB=cartdb
       - POSTGRES_USER=${CORE_DB_USERNAME}
@@ -40,6 +38,9 @@ services:
     image: myoung34/github-runner:latest
     container_name: quickbite-restaurant-runner
     restart: unless-stopped
+    depends_on:
+      cart-db:
+        condition: service_healthy
     environment:
       # Repository-scoped registration. Set these in the host environment or .env.
       RUNNER_SCOPE: repo
@@ -51,6 +52,7 @@ services:
       RUNNER_WORKDIR: /_work
       # Persist runner registration/configuration across container recreation.
       CONFIGURED_ACTIONS_RUNNER_FILES_DIR: /runner/data
+      DISABLE_AUTOMATIC_DEREGISTRATION: "true"
     volumes:
       # Gives Docker commands in workflow steps access to the host Docker daemon.
       - /var/run/docker.sock:/var/run/docker.sock
